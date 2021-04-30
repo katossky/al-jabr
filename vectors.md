@@ -16,7 +16,7 @@
 Vectors of character strings will be treated on a different page.
 
 | Operation    | R | Python | Numpy (Python) | Matlab | JavaScript | mathjs (JavaScript) | Breeze (Scala)
-|--------------|---|--------|----------------|--------|---------------------|---------------
+|--------------|---|--------|----------------|--------|------------|---------------------|------------
 | Vector from numbers `a`, `b`, `c` | `c(a,b,c)` | `[a,b,c]` | `np.array([a,b,c])` | `[a b c]` | `[a,b,c]` | `math.matrix([a,b,c])` | `DenseVector(a,b,c)`
 | Vector of size 0 (empty vector) | `logical()`<br>`integer()`<br>`numeric()`<br>`complex()` | `[]`| `np.empty(0, "bool")`<br>`np.empty(0, "int")`<br>`np.empty(0)`<br>`np.empty(0, "complex")` | `[]` | `Array(0)`<br>`[]` | `math.matrix()` | ?
 | Vector of 0s of size `n` | `integer(n)`;`rep(  0L, n)`<br>`numeric(n)`;`rep(   0, n)`<br>`complex(n)`;`rep(0+0i, n)` | `[0] * n`<br>`[0.] * n` | `np.zeros(n, "int")`<br>`np.zeros(n)`<br>`np.zeros(n, "complex")` | `zeros(1, n) % line matrix`<br>`zeros(n, 1) % column matrix` | `Array(n).fill(0)` | `math.zeros(n)` | `DenseVector.zeros[Double](n)`
