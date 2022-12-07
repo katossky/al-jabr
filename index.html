@@ -1,13 +1,85 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Al Jabr</title>
-</head>
-<body>
-    <table>
-        <thead>
+<html>
+    <head>
+        <title>Al Jabr</title>
+        <style>
+            @font-face {
+                font-family: "SinbadtheSailor";
+                src: url("SinbadtheSailor.ttf");
+            }
+
+            h1 {
+                font-weight: 100 ;
+                text-align: center;
+                font-family: "SinbadtheSailor";
+                font-size: 100px;
+            }
+            /* CSS for the page background gradient */
+            html, body {margin: 0; height: 100%; overflow: hidden}
+            body {
+                padding-right: 5%;
+                padding-left: 5%;
+                background: linear-gradient(to bottom, #ffffff, #e1e1e1);
+            }
+            
+            /* CSS for the table */
+            table {
+                text-align: center;
+                font-family: sans-serif;
+                margin :  50px auto;
+                border-collapse: collapse;
+            }
+            th:first-child, td:first-child{
+                text-align: left;
+            }
+            th, td {
+                vertical-align: top;
+                border: 1px solid black;
+                padding: 10px;
+            }
+            
+            /* CSS for the buttons */
+            #button-container{
+                margin: 0 auto;
+                text-align: center;
+            }
+            button {
+                border-radius: 8px;
+                border: none;
+                padding: 5px 10px;
+                margin: 5px;
+                background-color: #cccccc;
+                color: white;
+                cursor: pointer;
+                font-weight: bold;
+            }
+            button:hover {
+                background-color: #aaaaaa;
+            }
+            button.selected {
+                background-color: #00cc00;
+            }
+            button.selected:hover {
+                background-color: #009900;
+            }
+            button.selected:before {
+                content: "X ";
+                color: #ff0000;
+                -webkit-text-stroke: 0.5px;
+                -webkit-text-stroke-color: white;
+                display: none;
+            }
+            button.selected:hover:before {
+                display: inline;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>al jabr</h1>
+        
+        <div id="button-container"></div>
+        
+        <table>
             <tr>
                 <th>Operation</th>
                 <th>R</th>
@@ -18,8 +90,26 @@
                 <th>Mathjs (JavaScript)</th>
                 <th>Breeze (Scala)</th>
             </tr>
-        </thead>
-        <tbody>
+            <tr>
+                <td>Name of 1d arrays</td>
+                <td>vector</td>
+                <td>list</td>
+                <td>array</td>
+                <td>array</td>
+                <td>array</td>
+                <td>matrix</td>
+                <td>vector</td>
+            </tr>
+            <tr>
+                <td>Name of 2d arrays</td>
+                <td>matrix</td>
+                <td>🚧</td>
+                <td>?</td>
+                <td>?</td>
+                <td>?</td>
+                <td>matrix</td>
+                <td>?</td>
+            </tr>
             <tr>
                 <td>Index starts at...</td>
                 <td>1</td>
@@ -31,39 +121,77 @@
                 <td>0</td>
             </tr>
             <tr>
-                <td>Is a scalar a 1-element array?</td>
-                <td>Yes</td>
-                <td>No</td>
-                <td>No</td>
-                <td>Yes</td>
-                <td>Yes</td>
-                <td>No</td>
-                <td>?</td>
+                <td>Scalar is a 1-element array</td>
+                <td>✅</td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>✅</td>
+                <td>✅</td>
+                <td>❌</td>
+                <td>🚧</td>
             </tr>
             <tr>
-                <td>Name of 1d arrays</td>
-                <td>Vector</td>
-                <td>List</td>
-                <td>Array</td>
-                <td>?</td>
-                <td>Array</td>
-                <td>Matrix</td>
-                <td>Vector</td>
-            </tr>
-            <tr>
-                <td>Can assign outside of range?</td>
-                <td>Yes<br><small>In between values are assigned to <code>NA</code>.</small></td>
-                <td>No</td>
-                <td>No</td>
-                <td>Yes<br><small>⚠️ In between values are assigned to 0.</small></td>
-                <td>Yes</td>
-                <td>Yes<br><small>⚠️ In between values are assigned to 0.</small></td>
+                <td>Can assign outside of range</td>
+                <td>✅<br><small>In between values are assigned to <code>NA</code>.</small></td>
+                <td>❌</td>
+                <td>❌</td>
+                <td>✅<br><small>⚠️ In between values are assigned to 0.</small></td>
+                <td>✅<br><small>In between values stay empty.</small></td>
+                <td>✅<br><small>⚠️ In between values are assigned to 0.</small></td>
                 <td>?</td>
             </tr>
-        </tbody>
-    </table>
-    
-</body>
+        </table>
+        <script>
+            // Get the <table> element
+            var table = document.querySelector("table");
+
+            // Get the <div> element that will contain the buttons
+            var buttonContainer = document.querySelector("#button-container");
+
+            // Create a button for each <th> element (table header) in the table
+            table.querySelectorAll("th").forEach(function(header) {
+
+                if(header.textContent != "Operation"){
+
+                    // Create a new <button> element
+                    var button = document.createElement("button");
+                    // Set the text of the button to the text of the corresponding table header
+                    button.textContent = header.textContent;
+                    // Set the initial state of the button to "unselected"
+                    button.classList.add("selected");
+                    // Add an event listener that selects or unselects the button and
+                    // hides or shows the corresponding column when the button is clicked
+                    button.addEventListener("click", function() {
+                        // Get the index of the column to show or hide (counting from 0)
+                        var columnIndex = header.cellIndex;// If the button is unselected, select it and show the corresponding column
+                        if (!button.classList.contains("selected")) {
+                            button.classList.add("selected");
+                            
+                            // Get all the <tr> elements (table rows) in the table
+                            var rows = table.querySelectorAll("tr");
+                            
+                            // For each row, show the cell at the specified column index
+                            rows.forEach(function(row) {
+                                row.cells[columnIndex].style.display = "";
+                            });
+                            
+                            // If the button is selected, unselect it and hide the corresponding column
+                        } else {
+                            button.classList.remove("selected");
+                            
+                            // Get all the <tr> elements (table rows) in the table
+                                var rows = table.querySelectorAll("tr");
+                                
+                                // For each row, hide the cell at the specified column index
+                                rows.forEach(function(row) {
+                                    row.cells[columnIndex].style.display = "none";
+                                });
+                            }
+                    });
+                    // Add the button to the page
+                    buttonContainer.appendChild(button);
+                }
+            });
+        </script>
+    </body>
 </html>
-
-

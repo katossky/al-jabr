@@ -4,3 +4,5 @@
 .Ruserdata
 vectors.html
 *.Rproj
+.vscode/tasks.json
+.DS_Store
